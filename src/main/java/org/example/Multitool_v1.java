@@ -1,7 +1,7 @@
 package org.example;
 import java.util.Scanner;
 
-public class Multitool_v1 {
+public class Multitool_v1 {             // penis
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean mainmenu = true;
