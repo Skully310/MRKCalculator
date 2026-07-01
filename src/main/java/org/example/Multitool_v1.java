@@ -18,18 +18,13 @@ public class Multitool_v1 {
                 String choice = scanner.next();
 
                 switch (choice) {
-                    case "1":
-                        runCalculator(scanner);
-                        break;
-                    case "2":
-                        runConverter(scanner);
-                        break;
-                    case "3":
+                    case "1" -> runCalculator(scanner);
+                    case "2" -> runConverter(scanner);
+                    case "3" -> {
                         mainmenu = false;
                         System.out.println("\nThank you for using the app. Goodbye!");
-                        break;
-                    default:
-                        System.out.println("\nError: Invalid choice! Please enter 1, 2, or 3.");
+                    }
+                    default -> System.out.println("\nError: Invalid choice! Please enter 1, 2, or 3.");
                 }
             }
             scanner.close();
@@ -53,8 +48,13 @@ public class Multitool_v1 {
 
             System.out.println("Enter an operator (+, -, *, /, ^, %, v [Root]):");
             char operator = scanner.next().charAt(0);
-            if (operator != '+' && operator != '-' && operator != '*' && operator != '/' &&
-                    operator != '^' && operator != '%' && operator != 'v') {
+
+            boolean isValid = switch (operator) {
+                case '+', '-', '*', '/', '^', '%', 'v' -> true;
+                default -> false;
+            };
+
+            if (!isValid) {
                 System.out.println("Error: Invalid operator!");
                 continue;
             }
@@ -74,42 +74,34 @@ public class Multitool_v1 {
                 boolean error = false;
 
                 switch (operator) {
-                    case '+':
-                        value = n1 + n2;
-                        break;
-                    case '-':
-                        value = n1 - n2;
-                        break;
-                    case '*':
-                        value = n1 * n2;
-                        break;
-                    case '/':
+                    case '+' -> value = n1 + n2;
+                    case '-' -> value = n1 - n2;
+                    case '*' -> value = n1 * n2;
+                    case '/' -> {
                         if (n2 != 0) {
                             value = n1 / n2;
                         } else {
                             System.out.println("Error: Division by zero is not allowed!");
                             error = true;
                         }
-                        break;
-                    case '^':
-                        value = Math.pow(n1, n2);
-                        break;
-                    case '%':
+                    }
+                    case '^' -> value = Math.pow(n1, n2);
+                    case '%' -> {
                         if (n2 != 0) {
                             value = n1 * n2 / 100;
                         } else {
                             System.out.println("Error: Modulo by zero is not allowed!");
                             error = true;
                         }
-                        break;
-                    case 'v':
+                    }
+                    case 'v' -> {
                         if (n1 >= 0) {
                             value = Math.sqrt(n1);
                         } else {
                             System.out.println("Error: Cannot calculate the square root of a negative number!");
                             error = true;
                         }
-                        break;
+                    }
                 }
 
                 if (!error) {
@@ -121,7 +113,6 @@ public class Multitool_v1 {
                         System.out.println(n1 + " " + operator + " " + n2 + " = " + value);
                     }
                 }
-
 
                 boolean validResponse = false;
                 int counter = 0;
